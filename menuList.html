@@ -1,0 +1,9 @@
+
+<h3 ng-if="foundItems.length !== 0">
+  Title: {{myMenu.title}} (# of items  {{foundItems.length}} )</h3>
+<ul>
+  <li ng-repeat="menuItem in myMenu.found">
+     ({{menuItem.name}} ), {{menuItem.short_name}}, {{menuItem.description}}
+     <button ng-click="onRemove({index: $mapKey});">Remove Item</button>
+</li>
+</ul>

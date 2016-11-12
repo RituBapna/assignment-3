@@ -1,24 +1,39 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app='MenuListApp'>
   <head>
     <title>Narrow Down Your Menu Choice</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/styles.css">
   </head>
 <body>
-   <div class="container">
+   <div class="container" ng-controller='MenuListController as menuCtr'>
     <h1>Narrow Down Your Chinese Menu Choice</h1>
 
     <div class="form-group">
-      <input type="text" placeholder="search term" class="form-control">
+      <input type="text" ng-model="menuCtr.filterString" placeholder="search term" class="form-control">
     </div>
     <div class="form-group narrow-button">
-      <button class="btn btn-primary">Narrow It Down For Me!</button>
+      <button class="btn btn-primary" ng-click="menuCtr.getMenuList(menuCtr.filterString)">Narrow It Down For Me!</button>
     </div>
+    <div ng-if="menuCtr.menuList !== ''">
+    <br></br>
+        <menu-list
+        title="{{menuCtr.title}}"
+        my-menu="menuCtr"
+        found-items="menuCtr.found"
+        on-remove="menuCtr.removeItem(mapKey)"> </menu-list>
 
-    <!-- found-items should be implemented as a component -->
-    <found-items found-items="...." on-remove="...."></found-items>
+        <!-- <found-items found-items="menuCtr" on-remove="menuCtr.removeItem(mapKey)"></found-items> -->
+    </div>
+        <!-- found-items should be implemented as a component -->
+    <found-items
+    title="{{menuCtr.title}}"
+    my-menu="menuCtr"
+    found-items="menuCtr.found"
+    on-remove="menuCtr.removeItem(mapKey)"></found-items>
   </div>
 
 </body>
